@@ -61,8 +61,8 @@ async def run(unique, manufacturer, location, serial, index, sleep):
             expiration_date = await page.locator('#dsk-expirationDt').inner_text()
             print("(web driver #" + str(index) + ") [Dell] warranty status found (" + expiration_date + ") for serial #" + serial + ".")
 
-            # create a new excel sheet column for expiration date and add value
-            print("(web driver #" + str(index) + ") [Dell] appending warranty expiration date (" + expiration_date + ") to excel sheet for unique #" + str(unique) + ".")
+            # need to code! (create a new excel sheet column for expiration date and add value)
+            print("(web driver #" + str(index) + ") [Dell] appending warranty expiration date (" + expiration_date + ") to excel sheet for unique #" + str(unique) + "...")
 
             # close browser driver
             print("(web driver #" + str(index) + ") [Dell] finshed. closing driver...")
@@ -71,6 +71,7 @@ async def run(unique, manufacturer, location, serial, index, sleep):
 
          # if the unit manufacturer is a "Lenovo" then we go to Lenovo's warranty page
         elif manufacturer.lower() == "Lenovo".lower():
+            # need to code!
             print("(web driver #" + str(index) + ") manufacturer 'Lenovo' found, loading warranty page...")
 
             # close browser driver
@@ -81,16 +82,41 @@ async def run(unique, manufacturer, location, serial, index, sleep):
         # if the unit manufacturer is an "HP" then we go to HP's warranty page
         elif manufacturer.lower() == "HP".lower():
             print("(web driver #" + str(index) + ") manufacturer 'HP' found, loading warranty page...")
+            await page.goto("https://support.hp.com/us-en/checkwarranty/")
+            await page.wait_for_load_state('networkidle')
 
-            # close browser driver
-            print("(web driver #" + str(index) + ") [HP] finshed. closing driver...")
-            await browser.close()
-            print("(web driver #" + str(index) + ") driver closed.")
+            # enter the serial number and click on search button
+            print("(web driver #" + str(index) + ") [HP] page loaded, looking up serial #" + serial + "...")
+            page.on("dialog", lambda dialog: dialog.accept())
+            await page.locator('#wFormSerialNumber').type(serial)
+            await page.locator('#btnWFormSubmit').click()
+            await page.wait_for_load_state('networkidle')
+            await asyncio.sleep(8)
+
+            # if the serial number is not valid then throw an error
+            if await page.locator('h2:has-text("HP was unable to find a match")').is_visible() == True:
+                # throw error
+                print("(web driver #" + str(index) + ") [HP] ERROR: unable to find match for serial #" + serial + ".")
+
+                # close browser driver
+                print("(web driver #" + str(index) + ") [ERROR:2] error found! closing driver...")
+                await browser.close()
+                print("(web driver #" + str(index) + ") driver closed.")
+                
+            # if the serial number is valid then continue to grab warranty information
+            else:
+                # need to code!
+                print("(web driver #" + str(index) + ") [HP] warranty status found () for serial #" + serial + ".")
+
+                # close browser driver
+                print("(web driver #" + str(index) + ") [HP] finshed. closing driver...")
+                await browser.close()
+                print("(web driver #" + str(index) + ") driver closed.")
 
         # if the unit manufacturer is not a "Dell", "Lenovo" or "HP" then throw an error
         else:
             # throw error
-            print("(web driver #" + str(index) + ") error: manufacturer not known. (are you sure it's in the correct column?)")
+            print("(web driver #" + str(index) + ") [ERROR]: manufacturer not known. (are you sure it's in the correct column?)")
 
             # close browser driver
             print("(web driver #" + str(index) + ") [ERROR:1] error found! closing driver...")
