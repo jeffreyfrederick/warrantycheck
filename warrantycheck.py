@@ -13,7 +13,6 @@ import asyncio
 import pandas as pd
 from datetime import timedelta
 from timeit import default_timer as timer
-
 from playwright.async_api import async_playwright
 
 expiration_list = []
