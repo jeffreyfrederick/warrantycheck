@@ -47,7 +47,7 @@ async def run(unique, serial, index):
         await page.locator('#inpEntrySelection').type(serial)
         await page.locator('#btn-entry-select').click()
 
-        # Dell has some kind of bot detection so have to wait for a timer to end
+        # Dell has some kind of bot detection so we have to wait for a timer to end
         await asyncio.sleep(32)
 
         # click on search button again
