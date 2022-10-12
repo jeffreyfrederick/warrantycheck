@@ -1,13 +1,3 @@
-#######################################################################
-# Check Warranty Status
-#######################################################################
-# Automates checking the warranty status of Dell, HP and
-# Lenovo products from an Excel file utilizing asyncio, the 
-# Playwright API and Chromium.
-#######################################################################
-# Author: Jeffrey Frederick
-# Date: 10/08/22
-#######################################################################
 import time
 import asyncio
 import pandas as pd
