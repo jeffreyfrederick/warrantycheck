@@ -16,7 +16,7 @@ uniques = df['Unique #'].values.tolist()
 serials = df['Serial #'].values.tolist()
 
 async def scrape(index, unique, serial, throttler):
-    index = index + 1
+    index += 1
 
     async with throttler:
         # launch Chromium browser driver
