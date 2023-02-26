@@ -22,7 +22,6 @@ async def scrape(index, unique, serial, throttler):
     global serials
 
     async with throttler:
-
         # launch Chromium browser driver
         print(f"starting web driver #{index}")
         async with async_playwright() as driver:
@@ -48,7 +47,7 @@ async def scrape(index, unique, serial, throttler):
                 await asyncio.sleep(30)
                 await page.locator('#btn-entry-select').click()
 
-             # Dell has a survey popup that blocks viewing the warranty information, close the popup
+            # Dell has a survey popup that blocks viewing the warranty information, close the popup
             await page.wait_for_load_state()
             await asyncio.sleep(10)   
             try:
