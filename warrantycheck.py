@@ -72,6 +72,7 @@ async def scrape(index, unique, serial, throttler):
             print(f"(web driver #{index}) appending '{expiration_date}' to excel sheet for unique #{unique}")  
             expiration_list.append(expiration_date)
             print(expiration_list)
+            
             # close browser driver
             print(f"(web driver #{index}) finished. closing driver...")
             print(f"(web driver #{index}) serials \033[36m{len(serials)}\033[0m dates \033[32m{len(expiration_list)}\033[0m popups \033[31m{popup_count}\033[0m")
