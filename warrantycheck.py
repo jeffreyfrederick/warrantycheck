@@ -52,7 +52,7 @@ async def scrape(index, unique, serial, oem, model, location, throttler):
             await asyncio.sleep(2)
 
             # Dell has some kind of bot detection so we have to wait for a timer to end
-            if page.frame(url="https://www.dell.com/_sec/cp_challenge/ak-challenge-3-9.htm") != None:
+            if page.frame(url="https://www.dell.com/_sec/cp_challenge/ak-challenge-3-9.htm"):
                 print(f"(web driver #{index}) anti-bot detected, waiting...")
                 await asyncio.sleep(30)
                 await page.locator('#btn-entry-select').click()
