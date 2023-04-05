@@ -1,6 +1,6 @@
 # Warranty Status Check
  <img src="/images/logo.svg" height="100" width="100"> 
-<p>Automates checking the warranty status of Dell products from an Excel file utilizing ayncio and the Playwright API.</p>
+<p>This Python script automates the process of checking Dell warranty statuses for a list of devices and exports the data to an Excel file. It takes a list of Dell device serial numbers from an input Excel file and outputs warranty expiration dates, along with the original data, in a new Excel file.</p>
 
 <h2>Features</h2>
 <ul>
