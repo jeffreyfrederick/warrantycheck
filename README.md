@@ -81,3 +81,6 @@
 
 <h2>Note</h2>
 <p>This script uses an asynchronous approach to scrape warranty information and rate limits the tasks to avoid overloading your system. However, it is possible that Dell's website could change, which may affect the functionality of the script. Please use this tool responsibly and respect the website's terms of service.</p>
+
+<h2>License</h2>
+<p>This project is licensed under the <a href="LICENSE">MIT License</a>.</p>
