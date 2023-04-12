@@ -1,13 +1,13 @@
 # Warranty Status Check
  <img src="/images/logo.svg" height="100" width="100"> 
-<p>This Python script automates the process of checking Dell warranty statuses for a list of devices and exports the data to an Excel file. It takes a list of Dell device serial numbers from an input Excel file and outputs warranty expiration dates, along with the original data, in a new Excel file.</p>
+<p>This Python script automates the process of checking Dell warranty statuses for a list of devices and exports the data to an Excel file. It takes a list of Dell device serial numbers from an input Excel file and outputs warranty expiration dates, and their warranty plan type along with the original data, in a new Excel file.</p>
 
 <h2>Features</h2>
 <ul>
  <li>Reads device information from an input Excel file</li>
  <li>Scrapes Dell's warranty page for warranty expiration dates</li>
  <li>Handles anti-bot measures and popups on the warranty page</li>
- <li>Outputs the collected data to a new Excel file>/li>
+ <li>Outputs the collected data to a new Excel file</li>
 </ul>
  
 <h2>Dependencies</h2>
@@ -64,6 +64,7 @@
             <th>OEM</th>
             <th>Model</th>
             <th>Expiration</th>
+            <th>Plan</th>
             <th>Location</th>
         </tr>
     </thead>
@@ -74,6 +75,7 @@
             <td>Dell</td>
             <td>XPS 13</td>
             <td>2023-12-31</td>
+            <td>Basic</td>
             <td>NY</td>
         </tr>
     </tbody>
