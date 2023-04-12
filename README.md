@@ -52,7 +52,7 @@
     <li>Place the input file in the same directory as the script.</li>
     <li>Run the script with:</li>
 </ol>
-<pre><code>python warranty_check.py</code></pre>
+<pre><code>python warrantycheck.py</code></pre>
 <ol start="4">
     <li>After the script finishes, you will find an output file named <code>output.xlsx</code> with the following format:</li>
 </ol>
