@@ -77,23 +77,45 @@ async def scrape(index, unique, serial, oem, model, location, throttler):
 
             # grab warranty expiration date from product details
             expiration_date = await page.locator('#dsk-expirationDt').inner_text()
-            plan = await page.locator('#supp-svc-status-txt').inner_text()
-            plan_status = plan.split(':')[1].strip()
-            if "Active" in plan_status:
-                current_plan = await page.locator('#supp-svc-plan-txt-2').inner_text()
-                plan_type = current_plan.split(':')[1].strip()
-                current_plan_list.append(plan_type)
-            elif "Expires" in plan_status:
-                if await page.query_selector('#supp-svc-plan-txt-2') == None:
-                    plan_status = "Active"
-                    current_plan_list.append('N/A')
-                else:
+            
+            if await page.query_selector('#supp-svc-status-txt-2') == None:
+
+                plan = await page.locator('#supp-svc-status-txt').inner_text()
+                plan_status = plan.split(':')[1].strip()
+                if "Active" in plan_status:
                     current_plan = await page.locator('#supp-svc-plan-txt-2').inner_text()
                     plan_type = current_plan.split(':')[1].strip()
-                    plan_status = "Active"
                     current_plan_list.append(plan_type)
+                elif "Expires" in plan_status:
+                    if await page.query_selector('#supp-svc-plan-txt-2') == None:
+                        plan_status = "Active"
+                        current_plan_list.append('N/A')
+                    else:
+                        current_plan = await page.locator('#supp-svc-plan-txt-2').inner_text()
+                        plan_type = current_plan.split(':')[1].strip()
+                        plan_status = "Active"
+                        current_plan_list.append(plan_type)
+                else:
+                    current_plan_list.append('N/A')
             else:
-                current_plan_list.append('N/A')
+                plan = await page.locator('#supp-svc-status-txt-2').inner_text()
+                plan_status = plan.split(':')[1].strip()
+                if "Active" in plan_status:
+                    current_plan = await page.locator('#supp-svc-plan-txt-2').inner_text()
+                    plan_type = current_plan.split(':')[1].strip()
+                    current_plan_list.append(plan_type)
+                elif "Expires" in plan_status:
+                    if await page.query_selector('#supp-svc-plan-txt-2') == None:
+                        plan_status = "Active"
+                        current_plan_list.append('N/A')
+                    else:
+                        current_plan = await page.locator('#supp-svc-plan-txt-2').inner_text()
+                        plan_type = current_plan.split(':')[1].strip()
+                        plan_status = "Active"
+                        current_plan_list.append(plan_type)
+                else:
+                    plan_type = "Expired"
+                    current_plan_list.append('N/A')
 
             print(f"(web driver #{index}) warranty status found (\033[32m{expiration_date}\033[0m) for serial #{serial}")
 
