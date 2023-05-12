@@ -55,10 +55,10 @@ async def scrape(index, unique, serial, oem, model, location, throttler):
             await asyncio.sleep(2)
 
             # Dell has some kind of bot detection so have to wait for a timer to end
-            if page.frame(url="https://www.dell.com/_sec/cp_challenge/ak-challenge-3-9.htm") != None:
-                print(f"(web driver #{index}) anti-bot detected, waiting...")
-                await asyncio.sleep(30)
-                await page.locator('#btn-entry-select').click()
+            #if page.frame(url="https://www.dell.com/_sec/cp_challenge/ak-challenge-3-9.htm") != None:
+            #    print(f"(web driver #{index}) anti-bot detected, waiting...")
+            await asyncio.sleep(30)
+            await page.locator('#btn-entry-select').click()
 
             # Dell has a survey popup that blocks viewing the warranty information, close the popup
             await page.wait_for_load_state()
@@ -75,11 +75,11 @@ async def scrape(index, unique, serial, oem, model, location, throttler):
             await asyncio.sleep(8)
             await page.locator('#viewDetailsWarranty').click()
 
-            # grab warranty expiration date from product details
+            # grab warranty expiration date from product details and remove any special characters
             expiration_date = await page.locator('#dsk-expirationDt').inner_text()
-            
-            if await page.query_selector('#supp-svc-status-txt-2') == None:
+            expiration_date = expiration_date.translate({ord(i): None for i in "!@#$%^&*()_+-=[]\{}|;':,/.\""})
 
+            if await page.query_selector('#supp-svc-status-txt-2') == None:
                 plan = await page.locator('#supp-svc-status-txt').inner_text()
                 plan_status = plan.split(':')[1].strip()
                 if "Active" in plan_status:
